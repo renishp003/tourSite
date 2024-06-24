@@ -11,10 +11,10 @@ import TourPackageModel from "../models/tourPackageModel";
 const storage = multer.diskStorage({
    destination: (req, file, cb) => {
       if (file.fieldname === "adharPhoto") {
-         cb(null, 'C:/tour-test/express-debug/src/uploads')
+         cb(null, 'C:/TourSite/client/src/assets/images')
       }
       else if (file.fieldname === "touristPhoto") {
-         cb(null, 'C:/tour-test/express-debug/src/uploads');
+         cb(null, 'C:/TourSite/client/src/assets/images');
       }
 
    }

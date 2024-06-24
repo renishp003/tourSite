@@ -14,7 +14,7 @@ export const tourPackages={
 
             let image = req.file?.originalname;
             if(!(agencyId&&description&&country&&state&&cities&&tourName&&totalDays&&price&&image&&type)){
-                return res.status(400).json({isSuccess:false,message:"All fields are Required"})
+                return res.status(400).json({isSuccess:false,message:"All fields are Required!"})
             }
             const packages = await new TourPackageModel({
                 agencyId,
@@ -28,6 +28,7 @@ export const tourPackages={
                 image,
                 type
             })
+            console.log(packages)
             await packages.save()
             return res.status(200).json({isSuceess:true,message:"Tour package added Successfully!",data:packages})
             
