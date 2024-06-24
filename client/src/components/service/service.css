@@ -1,0 +1,26 @@
+.rowSize{
+    width: 90%;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+}
+.colmiddle{
+    display: flex;
+    justify-content: center;
+}
+.iconformt{
+    color:var(--lightgreen);
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+.capcolor{
+    color: var(--green);
+    margin-bottom: 10px;
+}
+.contentColor{
+    color: var(--lightgreen);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 16px;
+}

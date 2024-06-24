@@ -1,0 +1,9 @@
+.header {
+    background-color: #333;
+    color: var(--white);
+  }
+  
+  .header .contact i, .header .social-media a {
+    color: var(--white);
+
+  }
