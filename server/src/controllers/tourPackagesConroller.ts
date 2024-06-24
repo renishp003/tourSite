@@ -10,10 +10,10 @@ export const tourPackages={
         try {
             
             
-            let {agencyId,description,country,state,cities,tourName,totalDays,price}:TourPackage=req.body
+            let {agencyId,description,country,state,cities,tourName,totalDays,price,type}:TourPackage=req.body
 
             let image = req.file?.originalname;
-            if(!(agencyId&&description&&country&&state&&cities&&tourName&&totalDays&&price&&image)){
+            if(!(agencyId&&description&&country&&state&&cities&&tourName&&totalDays&&price&&image&&type)){
                 return res.status(400).json({isSuccess:false,message:"All fields are Required"})
             }
             const packages = await new TourPackageModel({
@@ -25,7 +25,8 @@ export const tourPackages={
                 tourName,
                 totalDays,
                 price,
-                image
+                image,
+                type
             })
             await packages.save()
             return res.status(200).json({isSuceess:true,message:"Tour package added Successfully!",data:packages})

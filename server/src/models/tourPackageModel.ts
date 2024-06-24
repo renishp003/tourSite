@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { TourPackage } from "../interfaces/packageInterface";
+import { TourPackagesType } from "../enums/packageTypes";
 
 const tourPackageSchema = new mongoose.Schema<TourPackage>({
     agencyId:{
@@ -51,6 +52,10 @@ const tourPackageSchema = new mongoose.Schema<TourPackage>({
         type:String,
         trim:true,
         required:true
+    },
+    type:{
+        type:String,
+        enum:Object.values(TourPackagesType)
     }
 })
 

@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose";
+import { TourPackagesType } from "../enums/packageTypes";
 
 export interface TourPackage{
     agencyId:ObjectId,
@@ -11,4 +12,5 @@ export interface TourPackage{
     tourName:string,
     totalDays:number,
     price:number,
+    type:TourPackagesType
 }
