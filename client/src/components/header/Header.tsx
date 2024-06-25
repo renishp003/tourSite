@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo5.png'
 import "../header/header.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,12 +16,14 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#home" className="me-4 headerfontsize">HOME</Nav.Link>
-            <Nav.Link href="#link" className="me-4 headerfontsize">ABOUT</Nav.Link>
-            <Nav.Link href="#link" className="me-4 headerfontsize">DESTINATIONS</Nav.Link>
-            <Nav.Link href="#link" className="me-4 headerfontsize">TOUR-PACKAGES</Nav.Link>
-            <Nav.Link href="#link" className="me-4 headerfontsize">CONTACT US</Nav.Link>
-            <Nav.Link href="#link" className="headerfontsize">LOGIN</Nav.Link>
+            <Link to="/" className="me-4 headerfontsize">HOME</Link>
+            <Link to="/about" className="me-4 headerfontsize">ABOUT</Link>
+            <Link to="/destination" className="me-4 headerfontsize">DESTINATIONS</Link>
+            <Link to="/tourpackages" className="me-4 headerfontsize">TOUR-PACKAGES</Link>
+            <Link to="/contact" className="me-4 headerfontsize">CONTACT US</Link>
+            <Link to="/login" className="headerfontsize">LOGIN</Link>
+            {/* <Link to="/registration" className="headerfontsize">Registration</Link> */}
+
            
           </Nav>
         </Navbar.Collapse>
