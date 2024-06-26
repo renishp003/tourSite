@@ -68,27 +68,18 @@ export const users = {
 
     verifyotp: async (req: Request, res: Response) => {
         try {
-            let { email, FirstName, LastName, password, mobile, otp }: UserData = req.body
+            let { email, otp }: UserData = req.body
             const user = await UserModel.findOne({ email })
             // console.log(user
             if (!user) {
                 return res.json({ isSuccess: false, message: "User not Found!" })
             }
-            if (!(email && FirstName && LastName && password && mobile)) {
+            if (!(email)) {
                 return res.status(400).json({ isSuccess: false, message: "All Fields Are Required" })
             }
 
             if (user.otp.code == otp.code && new Date() < new Date(user.otp.expires_at)) {
-                let saltgen = await bcrypt.genSalt(10)
-                user.password = await bcrypt.hash(password, saltgen)
-                user.FirstName = FirstName,
-                    user.LastName = LastName,
-                    user.mobile = mobile,
-
-
-                    await user.save()
-                confirmationMail(user.email, user.FirstName, user.LastName)
-                return res.status(200).json({ isSuccess: true, message: "User Registrated SuccessFully", data: user })
+                return res.status(200).json({ isSuccess: true, message: "Otp Verify SuccessFully", data: user })
             } else {
                 return res.status(400).json({ msg: 'Invalid or expired OTP' });
             }
@@ -98,6 +89,34 @@ export const users = {
             res.send({ isSuccess: false, message: "Something Went Wrong" })
         }
 
+    },
+    addDetails:async(req:Request,res:Response)=>{
+        try {
+            let { email, FirstName, LastName, password, mobile }: UserData = req.body
+            const user = await UserModel.findOne({ email })
+            // console.log(user
+            if (!user) {
+                return res.json({ isSuccess: false, message: "User not Found!" })
+            }
+            if (!(email && FirstName && LastName && password && mobile)) {
+                return res.status(400).json({ isSuccess: false, message: "All Fields Are Required" })
+            }
+
+           
+                let saltgen = await bcrypt.genSalt(10)
+                user.password = await bcrypt.hash(password, saltgen)
+                user.FirstName = FirstName,
+                    user.LastName = LastName,
+                    user.mobile = mobile,
+                    await user.save()
+                confirmationMail(user.email, user.FirstName, user.LastName)
+
+                return res.status(200).json({ isSuccess: true, message: "User Registrated SuccessFully", data: user })
+        } catch (error) {
+            console.log(error)
+        res.send({ isSuccess: false, message: "Something Went Wrong" })
+        }
+        
     },
     login: async (req: Request, res: Response) => {
         try {
@@ -154,6 +173,16 @@ export const users = {
             res.status(200).json({ accessToken: accessToken });
 
 
+        } catch (error) {
+            console.log(error)
+            return res.status(400).json({ message: "Something went Wrong" })
+        }
+    },
+    getOneuser:async(req:Request,res:Response)=>{
+        try {
+            const getOneUser =await UserModel.findById(req.params._id)
+            return res.status(200).json({isSuccess:true,message:"User Get SuccessFully",data:getOneUser})
+            
         } catch (error) {
             console.log(error)
             return res.status(400).json({ message: "Something went Wrong" })

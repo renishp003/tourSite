@@ -5,9 +5,12 @@ import "../header/header.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import RoutesP from "../routes/Routep";
 
 const Header = () => {
+  const auth = localStorage.getItem("token")
   return (
+
     <>
      <Navbar expand="lg" className="d-flex justify-content-center hedershadow sticky-top z-index-3	">
       <Container >
@@ -21,7 +24,12 @@ const Header = () => {
             <Link to="/destination" className="me-4 headerfontsize">DESTINATIONS</Link>
             <Link to="/tourpackages" className="me-4 headerfontsize">TOUR-PACKAGES</Link>
             <Link to="/contact" className="me-4 headerfontsize">CONTACT US</Link>
-            <Link to="/login" className="headerfontsize">LOGIN</Link>
+            {
+           
+            auth?<Link to="/logout" className="headerfontsize">SIGNOUT</Link>: <Link to="/login" className="headerfontsize">SIGNIN</Link>
+            }
+            
+
             {/* <Link to="/registration" className="headerfontsize">Registration</Link> */}
 
            
@@ -29,7 +37,8 @@ const Header = () => {
         </Navbar.Collapse>
         
       </Container>
-    </Navbar>    </>
+    </Navbar>    
+    </>
   );
 };
 

@@ -1,7 +1,10 @@
 :root{
     --green:#444444;
-    --lightgreen:#2cbc63;
+    --orange:#ff681a;
     --white:#fff;
+    --caption:#303030;
+    --text:#595959;
+
   }
   .rowupersize{
     width: 86%;

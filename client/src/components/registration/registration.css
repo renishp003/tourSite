@@ -1,0 +1,46 @@
+.bgimg{
+    background-image: url("../../assets/images/bgimg.jpg");
+    height: 81vh;
+    width: 100% !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    background-blend-mode: multiply;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    /* background-position: center; */
+}
+.rowsize{
+    width: 70%;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 5%; */
+}
+.rightimgregi{
+    background-image: url('../../assets/images/india.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 374px;
+    width: 100%;
+    border-radius: 0% 5% 5% 0%;
+}
+.formsection{
+    background-color: white;
+    border-radius: 5% 0% 0% 5%;
+    border: 1px solid none;
+    padding: 25px 60px;
+
+}
+.formbtn{
+    background-color: var(--orange);
+    border: none;
+}
+.linktg{
+    color: var(--orange);
+    text-transform: capitalize;
+    font-size: inherit;
+}

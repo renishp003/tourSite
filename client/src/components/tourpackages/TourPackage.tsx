@@ -1,7 +1,7 @@
 const TourPackage = () => {
   return (
     <div>
-      
+      tourpackages
     </div>
   )
 }

@@ -1,7 +1,7 @@
 const Destinations = () => {
   return (
     <div>
-      
+      destinatons
     </div>
   )
 }
