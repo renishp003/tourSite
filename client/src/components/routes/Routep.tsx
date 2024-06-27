@@ -11,6 +11,7 @@ import MasterPage from "../masterpage/MasterPage";
 import UpHeader from "../upperHeader/UpHeader";
 import Otp from "../registration/Otp";
 import AddDetails from "../registration/AddDetails";
+import FooterDown from "../footer/FooterDown";
 
 const RoutesP = () => {
   const auth= localStorage.getItem("token");
@@ -47,6 +48,7 @@ const RoutesP = () => {
         <Route path="/otpverify" element={<MasterPage><Otp/></MasterPage>}></Route>
         <Route path="/adddetails" element={<AddDetails/>}></Route>
       </Routes>
+      <FooterDown/>
     </>
   );
 };

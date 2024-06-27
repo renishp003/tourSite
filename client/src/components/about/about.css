@@ -1,0 +1,54 @@
+.leftimg{
+    height: 400px;
+    width: 600px;
+}
+.sec3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--cardcolor);
+    padding: 30px 0px;
+    border-radius: 10px;
+}
+.abticon{
+    color: var(--orange);
+    margin-bottom: 10px;
+    font-size: 50px !important;
+}
+.statsec{
+    color: white;
+    background-color: var(--green);
+}
+.reviewsection{
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+   
+}
+.reviewsection:hover .rvwiconcolor{
+   color: var(--green);
+  
+}
+.rvwiconcolor{
+    color: var(--orange);
+    cursor: pointer;
+    transition-duration: 2s;
+}
+
+.imgsizeabtrivw{
+    height: 60px !important;
+}
+
+.touristnameh5{
+    color: var(--caption);
+}
+.reviwcontentcolor{
+    color:var(--text);
+}
+.typetourist{
+    color: var(--orange);
+}

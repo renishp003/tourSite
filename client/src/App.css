@@ -4,9 +4,20 @@
     --white:#fff;
     --caption:#303030;
     --text:#595959;
+    --cardcolor:#f3f3f3
 
   }
   .rowupersize{
     width: 86%;
   }
-  
+  .bgimgforall{
+   
+    width: 100%;
+    height: 40vh;
+   border-radius: 0;
+   filter: brightness(0.5);
+  }
+  .titleforrmat{
+    padding: 69px;
+    font-size: 30px;
+  }
