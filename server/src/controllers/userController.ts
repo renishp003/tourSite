@@ -14,19 +14,19 @@ const refreshJwtSecretkey = process.env.REFRESHTOKEN_KEY
 export const users = {
     add: async (req: Request, res: Response) => {
         try {
-            let { email,role }: UserData = req.body;
-            if (!email&&!role) {
-                return res.status(400).json({ isSuccess: false, message: "Please Enter Your Email" });
+            let { email }: UserData = req.body;
+            if (!email) {
+                return res.status(200).json({ isSuccess: false, message: "Please Enter Your Email!" });
             }
 
             const user = await UserModel.findOne({ email });
             if (user) {
-                return res.status(400).json({ isSuccess: false, message: "User is already Registered" });
+                console.log(user)
+                return res.status(200).json({ isSuccess: false, message: "User is already Registered" });
             }
             const otp = await generateOtp();
             const userData = await new UserModel({
                 email,
-                role,
                 otp: { code: otp, expires_at: getExpiryDate() }
             }).save();
             sendOtp(userData.email, otp);
