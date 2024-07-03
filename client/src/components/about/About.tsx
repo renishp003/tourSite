@@ -12,7 +12,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 const About = () => {
   return (
     <>
-      <Card className="text-white m-0">
+      <Card className="text-white m-0 defaultProp">
         <Card.Img
           src={bgimg2}
           alt="Card image"

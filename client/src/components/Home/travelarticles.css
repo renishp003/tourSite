@@ -1,0 +1,27 @@
+.articledisply{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 1.5s;
+}
+.articledisply:hover .displynone{
+    display: block !important;
+    cursor: pointer;
+    color: white !important;
+}
+.displynone{
+    display:none;
+    transition: all 2s;
+    cursor: pointer;
+    color: white;
+}
+.defaultProp1{
+    color: white;
+}
+.hovermate:hover{
+    filter: brightness(0.5);
+    color: white !important;
+    }
+
+    

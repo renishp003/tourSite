@@ -3,7 +3,7 @@
     --orange:#ff681a;
     --white:#fff;
     --caption:#303030;
-    --text:#595959;
+    --text:#8c8c8c;
     --cardcolor:#f3f3f3
 
   }
@@ -21,3 +21,10 @@
     padding: 69px;
     font-size: 30px;
   }
+
+  .defaultProp{
+    /* border-color: white !important; */
+    border-radius: 0% !important;
+    border: none !important;
+    box-shadow: none !important;
+}
