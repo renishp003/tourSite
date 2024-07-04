@@ -4,18 +4,48 @@ import './registration.css'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { useSelector } from "react-redux";
 import { addUserThunk } from "../../store/user/user.slice";
+import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 const Registration = () => {
-  // const navigate = useNavigate()
+  const userState = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
   const [email, setemail] = useState('')
   console.log(email)
-  // const userState = useSelector((state:RootState)=>state.user)
+  useEffect(() => {
+    if (userState.status === 'succeeded') {
+      Swal.fire({
+        title: userState.message || 'Success!',
+        text: 'Email added successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/otpverify');
+      });
+    } else if (userState.status === 'failed') {
+      Swal.fire({
+        title: userState.message || 'Error!',
+        text: userState.error || 'Failed to add email',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  }, [userState.status, userState.message, userState.error, navigate]);
   const handleAddUser = (e)=>{
     e.preventDefault()
-    dispatch(addUserThunk(email))
+    if (email) {
+      dispatch(addUserThunk(email));
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Email is required!',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
   }
   return (
     <>
