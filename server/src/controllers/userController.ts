@@ -68,9 +68,13 @@ export const users = {
 
     verifyotp: async (req: Request, res: Response) => {
         try {
+            console.log(req.body);
+            
             let { email, otp }: UserData = req.body
             const user = await UserModel.findOne({ email })
             // console.log(user
+            console.log(user + "user data");
+            
             if (!user) {
                 return res.json({ isSuccess: false, message: "User not Found!" })
             }
@@ -78,10 +82,13 @@ export const users = {
                 return res.status(400).json({ isSuccess: false, message: "All Fields Are Required" })
             }
 
-            if (user.otp.code == otp.code && new Date() < new Date(user.otp.expires_at)) {
+            let newOtp:any = user.otp.code
+            if (newOtp === otp && new Date() < new Date(user.otp.expires_at)) {
+                console.log("responsed sending");
+                
                 return res.status(200).json({ isSuccess: true, message: "Otp Verify SuccessFully", data: user })
             } else {
-                return res.status(400).json({ msg: 'Invalid or expired OTP' });
+                return res.status(400).json({isSuccess: false, message: 'Invalid or expired OTP' });
             }
         }
         catch (error) {

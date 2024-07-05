@@ -28,7 +28,7 @@ const Otp = () => {
     } else if (userState.status === 'failed') {
       Swal.fire({
         title: userState.message || 'Error!',
-        text: userState.error || 'Failed to verify OTP',
+        text: userState.error || 'Failed sto verify OTP',
         icon: 'error',
         confirmButtonText: 'OK'
       });

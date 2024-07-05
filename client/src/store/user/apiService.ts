@@ -8,6 +8,6 @@ export const addUser = async (email: string): Promise<AddUserResponse> => {
   };
   
   export const verifyOtp = async (email: string, otp: string): Promise<VerifyOtpResponse> => {
-    const response = await axios.post<VerifyOtpResponse>('/api/user/verifyOtp', { email, otp });
+    const response = await axios.post<VerifyOtpResponse>('http://localhost:3001/api/user/verifyOtp', { email, otp });
     return response.data;
   };

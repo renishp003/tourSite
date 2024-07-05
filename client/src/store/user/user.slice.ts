@@ -39,10 +39,10 @@ export const addUserThunk = createAsyncThunk<AddUserResponse, string, { rejectVa
     }
   }
 );
-
 export const verifyOtpThunk = createAsyncThunk<VerifyOtpResponse, { email: string; otp: string }, { rejectValue: string }>(
   'user/verifyOtp',
   async ({ email, otp }, thunkAPI) => {
+    console.log("email ",email , "otp", otp)
     try {
       const response = await verifyOtp(email, otp);
       if (response.isSuccess) {
