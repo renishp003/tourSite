@@ -7,13 +7,12 @@ import { AddDetailsResponse, AddUserResponse, VerifyOtpResponse } from './apiRes
 interface OTP {
   code: string;
   expires_at: string;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  
 }
 
 interface UserState {
   email: string;
   otp: OTP["code"] | null;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
   message: string | null;
   FirstName:string
@@ -26,7 +25,6 @@ interface UserState {
 const initialState: UserState = {
   email: '',
   otp: null,
-  status: 'idle',
   error: null,
   message: null,
   FirstName:'',
@@ -92,49 +90,49 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(addUserThunk.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(addUserThunk.fulfilled, (state, action: PayloadAction<AddUserResponse>) => {
-        state.status = 'succeeded';
-        state.email = action.payload.data.email;
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(addUserThunk.pending, (state) => {
+  //       state.status = 'loading';
+  //     })
+  //     .addCase(addUserThunk.fulfilled, (state, action: PayloadAction<AddUserResponse>) => {
+  //       state.status = 'succeeded';
+  //       state.email = action.payload.data.email;
         
-      })
-      .addCase(addUserThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload || null;
-        state.message = action.payload || null;
-      })
-      .addCase(verifyOtpThunk.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(verifyOtpThunk.fulfilled, (state, action: PayloadAction<VerifyOtpResponse>) => {
-        state.status = 'succeeded';
-        state.message = action.payload.message;
-      })
-      .addCase(verifyOtpThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload || null;
-        state.message = action.payload || null;
-      })
-      .addCase(addDetailsThunk.pending,(state,action)=>{
-        state.status = 'loading'
-        state.error = action.payload || null
-        state.message = action.payload || null
-      })
-      .addCase(addDetailsThunk.fulfilled,(state,action:PayloadAction<AddDetailsResponse>)=>{
-        state.status = 'succeeded'
-       state.message = action.payload.message
-      })
-      .addCase(addDetailsThunk.rejected,(state,action)=>
-      {
-        state.status = 'failed';
-        state.error = action.payload || null;
-        state.message = action.payload || null;
-      })
-  },
+  //     })
+  //     .addCase(addUserThunk.rejected, (state, action) => {
+  //       state.status = 'failed';
+  //       state.error = action.payload || null;
+  //       state.message = action.payload || null;
+  //     })
+  //     .addCase(verifyOtpThunk.pending, (state) => {
+  //       state.status = 'loading';
+  //     })
+  //     .addCase(verifyOtpThunk.fulfilled, (state, action: PayloadAction<VerifyOtpResponse>) => {
+  //       state.status = 'succeeded';
+  //       state.message = action.payload.message;
+  //     })
+  //     .addCase(verifyOtpThunk.rejected, (state, action) => {
+  //       state.status = 'failed';
+  //       state.error = action.payload || null;
+  //       state.message = action.payload || null;
+  //     })
+  //     .addCase(addDetailsThunk.pending,(state,action)=>{
+  //       state.status = 'loading'
+  //       state.error = action.payload || null
+  //       state.message = action.payload || null
+  //     })
+  //     .addCase(addDetailsThunk.fulfilled,(state,action:PayloadAction<AddDetailsResponse>)=>{
+  //       state.status = 'succeeded'
+  //      state.message = action.payload.message
+  //     })
+  //     .addCase(addDetailsThunk.rejected,(state,action)=>
+  //     {
+  //       state.status = 'failed';
+  //       state.error = action.payload || null;
+  //       state.message = action.payload || null;
+  //     })
+  // },
 });
 
 export default userSlice.reducer;

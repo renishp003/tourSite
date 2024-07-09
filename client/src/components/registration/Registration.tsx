@@ -15,40 +15,12 @@ const Registration = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [email, setemail] = useState("");
   console.log(email);
-  useEffect(() => {
-    if (userState.status === "succeeded") {
-      Swal.fire({
-        title: "Success!",
-        text: 'Email added successfully!',
-        icon: "success",
-        confirmButtonText: 'OK'
-      // });
-      }).then(() => {
-        navigate('/otpverify');
-      });
-    } else if (userState.status === "failed") {
-      Swal.fire({
-        title:  "Error!",
-        text: userState.error || "Failed to add email",
-        icon: "error",
-        confirmButdtonText: "OK",
-      });
-    }
-  }, [userState.status, userState.message, userState.error, navigate]);
-  const handleAddUser = (e:React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleAddUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    dispatch(addUserThunk(email));
     if (email) {
-      console.log("hello wolrd"+ email);
-      
-      dispatch(addUserThunk(email));
-      // navigate("/otpverify");
-    } else {
-      Swal.fire({
-        title: "Error!",
-        text: "Email is required!",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      navigate("/otpverify");
     }
   };
   return (

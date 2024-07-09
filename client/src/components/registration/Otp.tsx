@@ -18,29 +18,13 @@ const Otp = () => {
   const [otp, setotp] = useState("");
   const email = useSelector((state:RootState) => state.user.email )
   const userState = useSelector((state: RootState) => state.user);
-
+  
+  console.log(userState);
 
   const handleVerifyOtp = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     dispatch(verifyOtpThunk({ email: email, otp }));
-    if (userState.status === "succeeded") {
-      
-      Swal.fire({
-        title: "Success!",
-        text: "OTP Verified!",
-        icon: "success",
-        confirmButtonText: 'OK'
-      }).then(() => {
-        navigate('/adddetails');
-      });
-    } else if (userState.status === "failed") {
-      Swal.fire({
-        title:  "Error!",
-        text:"Failed sto verify OTP",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
+   navigate('/adddetails')
 
   };
 

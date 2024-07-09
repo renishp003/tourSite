@@ -15,7 +15,7 @@ const AddDetails = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
    const [details, setDetails] = useState({
-    email:userState.email,
+    email:localStorage.getItem('email'),
     password:'',
     mobile:0,
     FirstName:"",
@@ -24,26 +24,14 @@ const AddDetails = () => {
 
    const handleAddDetails=(e: React.ChangeEvent<HTMLInputElement>)=>{
     e.preventDefault()
-    dispatch(addDetailsThunk(details))
-
-    if(userState.status === 'succeeded'){
-      Swal.fire({
-        title:"Success!",
-        text:"User Registrated Succussfully",
-        icon:"success",
-        confirmButtonText:"Ok"
-      }).then(()=>{
-        navigate('/')
-      })
-     
-    }else if(userState.status === 'failed'){
-      Swal.fire({
-        title: 'Error!',
-        text: "SomeThing Went Wrong",
-        icon: 'error',
-        confirmButtonText: 'OK'
-      })
+    if(details.LastName===''){
+      alert("ples")
+      return false
     }
+    dispatch(addDetailsThunk(details))
+navigate('/')
+localStorage.removeItem('email')
+    
    }
 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
