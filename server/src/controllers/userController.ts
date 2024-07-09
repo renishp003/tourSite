@@ -25,6 +25,7 @@ export const users = {
                 return res.status(200).json({ isSuccess: false, message: "User is already Registered" });
             }
             const otp = await generateOtp();
+            console.log('this is otp',otp)
             const userData = await new UserModel({
                 email,
                 otp: { code: otp, expires_at: getExpiryDate() }
@@ -100,8 +101,10 @@ export const users = {
     addDetails:async(req:Request,res:Response)=>{
         try {
             let { email, FirstName, LastName, password, mobile }: UserData = req.body
+            console.log("email" , req.body);
+            
             const user = await UserModel.findOne({ email })
-            // console.log(user
+            console.log(user + "user");
             if (!user) {
                 return res.json({ isSuccess: false, message: "User not Found!" })
             }

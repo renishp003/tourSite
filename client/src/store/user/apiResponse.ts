@@ -19,3 +19,15 @@ export interface VerifyOtpResponse {
   isSuccess: boolean;
   message: string;
 }
+
+export interface AddDetailsResponse{
+  data:{
+    FirstName:string
+    LastName:string
+    mobile:number
+    password:string
+    email:string
+  }
+     isSuccess: boolean
+  message: string
+}

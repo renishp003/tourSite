@@ -6,6 +6,9 @@ import connectToDatabase from '../src/config/db'
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({
+    extended:true
+}))
 
 const port = process.env.PORT;
 

@@ -1,13 +1,17 @@
 import axios from "axios";
-import { AddUserResponse, VerifyOtpResponse } from "./apiResponse";
-
+import {  AddDetailsResponse, AddUserResponse, VerifyOtpResponse } from "./apiResponse";
+const BASE_API = 'http://localhost:3001/api/user'
 export const addUser = async (email: string): Promise<AddUserResponse> => {
-    const response = await axios.post<AddUserResponse>('http://localhost:3001/api/user/addUser', { email });
-    localStorage.setItem('email',email)
+    const response = await axios.post<AddUserResponse>(`${BASE_API}/addUser`,{email});
+    // localStorage.setItem('email',email)
     return response.data;
   };
   
   export const verifyOtp = async (email: string, otp: string): Promise<VerifyOtpResponse> => {
-    const response = await axios.post<VerifyOtpResponse>('http://localhost:3001/api/user/verifyOtp', { email, otp });
+    const response = await axios.post<VerifyOtpResponse>(`${BASE_API}/verifyOtp`, { email, otp });
     return response.data;
   };
+  export const addDetails = async(details:{email:string,password:string,mobile:number,FirstName:string,LastName:string}):Promise<AddDetailsResponse>=>{
+    const res = await axios.post<AddDetailsResponse>(`${BASE_API}/addDetails`,details)
+    return res.data
+  }

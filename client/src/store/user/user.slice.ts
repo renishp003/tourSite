@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/slices/userSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { addUser, verifyOtp} from './apiService';
-import { AddUserResponse, VerifyOtpResponse } from './apiResponse';
+import { addDetails, addUser, verifyOtp} from './apiService';
+import { AddDetailsResponse, AddUserResponse, VerifyOtpResponse } from './apiResponse';
 
 interface OTP {
   code: string;
   expires_at: string;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
 }
 
 interface UserState {
@@ -14,7 +16,12 @@ interface UserState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
   message: string | null;
+  FirstName:string
+  LastName:string
+  mobile:number
+  password:string
 }
+
 
 const initialState: UserState = {
   email: '',
@@ -22,6 +29,10 @@ const initialState: UserState = {
   status: 'idle',
   error: null,
   message: null,
+  FirstName:'',
+  LastName:'',
+  mobile:0,
+  password:''
 };
 
 export const addUserThunk = createAsyncThunk<AddUserResponse, string, { rejectValue: string }>(
@@ -34,7 +45,8 @@ export const addUserThunk = createAsyncThunk<AddUserResponse, string, { rejectVa
       } else {
         return thunkAPI.rejectWithValue(response.message);
       }
-    } catch (error: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to add user');
     }
   }
@@ -56,6 +68,26 @@ export const verifyOtpThunk = createAsyncThunk<VerifyOtpResponse, { email: strin
   }
 );
 
+export const addDetailsThunk = createAsyncThunk<
+AddDetailsResponse,
+  { email: string; password: string; mobile: number; FirstName: string; LastName: string },
+  { rejectValue: string }
+>(
+  'user/addDetails',
+  async (details, thukAPI) => {
+    try {
+           const res = await addDetails(details);
+      if (res.isSuccess === true) {
+        return res;
+      } else {
+        return thukAPI.rejectWithValue(res.message);
+      }
+    } catch (error: any) {
+      return thukAPI.rejectWithValue(error.res?.data?.message || 'Failed to Add Details');
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -68,8 +100,7 @@ const userSlice = createSlice({
       .addCase(addUserThunk.fulfilled, (state, action: PayloadAction<AddUserResponse>) => {
         state.status = 'succeeded';
         state.email = action.payload.data.email;
-        state.otp = action.payload.data.otp;
-        state.message = action.payload.message;
+        
       })
       .addCase(addUserThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -87,7 +118,22 @@ const userSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload || null;
         state.message = action.payload || null;
-      });
+      })
+      .addCase(addDetailsThunk.pending,(state,action)=>{
+        state.status = 'loading'
+        state.error = action.payload || null
+        state.message = action.payload || null
+      })
+      .addCase(addDetailsThunk.fulfilled,(state,action:PayloadAction<AddDetailsResponse>)=>{
+        state.status = 'succeeded'
+       state.message = action.payload.message
+      })
+      .addCase(addDetailsThunk.rejected,(state,action)=>
+      {
+        state.status = 'failed';
+        state.error = action.payload || null;
+        state.message = action.payload || null;
+      })
   },
 });
 

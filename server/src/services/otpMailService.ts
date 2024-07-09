@@ -21,20 +21,17 @@ export const getExpiryDate = (): Date => {
     return new Date(Date.now() + 10 * 60 * 1000);
 };
 
-export const sendOtp = (email: string, otp: string) => {
+export const sendOtp = async (email: string, otp: string) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
         subject: 'Your OTP Code',
         text: `Your OTP code is ${otp}. It will expire in 10 Minutes.`
     };
-    transporter.sendMail(mailOptions, (err:any) => {
-        if (err) {
-            console.error('Error sending OTP email:', err);
-        } else {
-            console.log('OTP sent to the Email');
-        }
-    });
+    let res = await transporter.sendMail(mailOptions);
+    console.log("email response" + res);
+    
+    
 };
 export const confirmationMail = (email: string, FirstName:string,LastName:string) => {
     const mailOptions = {

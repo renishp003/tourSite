@@ -9,37 +9,39 @@ import { useSelector } from "react-redux";
 import { verifyOtpThunk } from "../../store/user/user.slice";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 const Otp = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [otp, setotp] = useState("");
-  const [email, setemail] = useState(localStorage.getItem("email"));
+  const email = useSelector((state:RootState) => state.user.email )
   const userState = useSelector((state: RootState) => state.user);
-  useEffect(() => {
-    if (userState.status === 'succeeded') {
+
+
+  const handleVerifyOtp = (e:React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    dispatch(verifyOtpThunk({ email: email, otp }));
+    if (userState.status === "succeeded") {
+      
       Swal.fire({
-        title: userState.message || 'Success!',
-        text: 'OTP Verified!',
-        icon: 'success',
+        title: "Success!",
+        text: "OTP Verified!",
+        icon: "success",
         confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/adddetails');
       });
-    } else if (userState.status === 'failed') {
+    } else if (userState.status === "failed") {
       Swal.fire({
-        title: userState.message || 'Error!',
-        text: userState.error || 'Failed sto verify OTP',
-        icon: 'error',
-        confirmButtonText: 'OK'
+        title:  "Error!",
+        text:"Failed sto verify OTP",
+        icon: "error",
+        confirmButtonText: "OK",
       });
     }
-  }, [userState.status, userState.message, userState.error]);
 
-  const handleVerifyOtp = () => {
-  
-      dispatch(verifyOtpThunk({ email: email, otp }));
-    
-    
   };
 
   return (
@@ -57,10 +59,10 @@ const Otp = () => {
 
                   <p className="text-muted mb-4">Please Check Your Email</p>
                   <p className="text-muted mb-4">
-                    We Have sent a Otp to Xyz@gmail.com
+                    We Have sent a Otp to {email}
                   </p>
 
-                  <Form>
+                  <Form onSubmit={handleVerifyOtp}>
                     <Row>
                       <Col>
                         <Form.Control
@@ -70,24 +72,11 @@ const Otp = () => {
                           value={otp}
                         />
                       </Col>
-                      {/* <Col>
-        <Form.Control type="number" className="otp-letter-input" max={1}/>
-        </Col>
-        <Col>
-        <Form.Control type="number" className="otp-letter-input" max={1}/>
-        </Col>
-        <Col>
-        <Form.Control type="number" className="otp-letter-input" max={1}/> */}
-                      {/* </Col> */}
-                      {/* <Form.Group className="mb-3" controlId="formGroupEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-      </Form.Group> */}
                       <p className="my-3 text-center">
                         Didn't get the Otp? Click to Resend{" "}
                       </p>
                       <div className="d-flex justify-content-center align-items-center">
-                        <Button onClick={handleVerifyOtp} className="my-3 formbtn w-50">
+                        <Button type="submit" className="my-3 formbtn w-50">
                           Verify
                         </Button>
                       </div>
