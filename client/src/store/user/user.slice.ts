@@ -38,7 +38,7 @@ export const addUserThunk = createAsyncThunk<AddUserResponse, string, { rejectVa
   async (email, thunkAPI) => {
     try {
       const response = await addUser(email);
-      if (response.isSuccess) {
+      if (response.isSuccess === true) {
         return response;
       } else {
         return thunkAPI.rejectWithValue(response.message);
