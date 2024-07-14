@@ -55,7 +55,8 @@ export const verifyOtpThunk = createAsyncThunk<VerifyOtpResponse, { email: strin
     console.log("email ",email , "otp", otp)
     try {
       const response = await verifyOtp(email, otp);
-      if (response.isSuccess) {
+      if (response.isSuccess === true) {
+       
         return response;
       } else {
         return thunkAPI.rejectWithValue(response.message);
