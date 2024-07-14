@@ -4,7 +4,7 @@ import './addDetails.css'
 import { useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../store/store"
 import Swal from "sweetalert2"
-import { addDetailsThunk } from "../../store/user/user.slice"
+// import { addDetailsThunk } from "../../store/user/user.slice"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { addDetails } from "../../store/user/apiService"
@@ -28,7 +28,7 @@ const AddDetails = () => {
       alert("ples")
       return false
     }
-    dispatch(addDetailsThunk(details))
+    // dispatch(addDetailsThunk(details))
 navigate('/')
 localStorage.removeItem('email')
     

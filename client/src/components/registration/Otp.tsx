@@ -2,29 +2,27 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { MdMarkEmailRead } from "react-icons/md";
 import "./otp.css";
-// import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
-import { verifyOtpThunk } from "../../store/user/user.slice";
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
+
+import {  useState } from "react";
+
+
+import { verifyOtp } from "../../store/user/user.fetch";
+
 
 const Otp = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [otp, setotp] = useState("");
-  const email = useSelector((state:RootState) => state.user.email )
-  const userState = useSelector((state: RootState) => state.user);
+  const email = useSelector((state:RootState) => state.user )
+  console.log(email)
   
-  console.log(userState);
-
   const handleVerifyOtp = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch(verifyOtpThunk({ email: email, otp }));
-   navigate('/adddetails')
+    dispatch(verifyOtp( email, otp ));
+  //  navigate('/adddetails')
 
   };
 
@@ -43,7 +41,8 @@ const Otp = () => {
 
                   <p className="text-muted mb-4">Please Check Your Email</p>
                   <p className="text-muted mb-4">
-                    We Have sent a Otp to {email}
+                    We Have sent a Otp to 
+                    {email}
                   </p>
 
                   <Form onSubmit={handleVerifyOtp}>

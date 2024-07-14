@@ -4,24 +4,27 @@ import "./registration.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 // import { useSelector } from "react-redux";
-import { addUserThunk } from "../../store/user/user.slice";
-import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import { addUser } from "../../store/user/user.fetch";
+// import { addUser } from "../../store/user/apiService";
+
 const Registration = () => {
-  const userState = useSelector((state: RootState) => state.user);
+  // const userState = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [email, setemail] = useState("");
-  console.log(email);
+  // console.log(email);
 
   const handleAddUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch(addUserThunk(email));
-    if (email) {
-      navigate("/otpverify");
-    }
+   
+    dispatch(addUser(email,navigate));
+  //  console.log("dispathc--->"+hi)
+  
+      // navigate("/otpverify");
+    
   };
   return (
     <>

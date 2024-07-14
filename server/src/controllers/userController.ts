@@ -74,7 +74,7 @@ export const users = {
             let { email, otp }: UserData = req.body
             const user = await UserModel.findOne({ email })
             // console.log(user
-            console.log(user + "user data");
+            console.log( "user data"+user);
             
             if (!user) {
                 return res.json({ isSuccess: false, message: "User not Found!" })
@@ -84,12 +84,13 @@ export const users = {
             }
 
             let newOtp:any = user.otp.code
+            console.log(newOtp)
             if (newOtp === otp && new Date() < new Date(user.otp.expires_at)) {
                 console.log("responsed sending");
                 
                 return res.status(200).json({ isSuccess: true, message: "Otp Verify SuccessFully", data: user })
             } else {
-                return res.status(400).json({isSuccess: false, message: 'Invalid or expired OTP' });
+                return res.status(200).json({isSuccess: false, message: 'Invalid or expired OTP!' });
             }
         }
         catch (error) {
